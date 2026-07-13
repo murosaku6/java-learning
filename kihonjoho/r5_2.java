@@ -1,31 +1,63 @@
-public class r5_2{
-    public static void main(){
-    int[] data = {2, 1, 3, 5, 4};
-    int first = data[0];
-    int last = data[4];
-    int pivot = (first + last) / 2;
-    int i = data[0];
-    int j = data[5];
+public class r5_2 {
 
-    System.out.println(pivot);
+    // 大域変数
+    static int[] data = {2, 1, 3, 5, 4};
 
-    while (true) {
-        while(i < pivot){
-            i = i + 1;
+    public static void main(String[] args) {
+
+        sort(0, 4);
+
+        System.out.println("最終結果");
+        for (int num : data) {
+            System.out.print(num + " ");
         }
-        while (pivot < j) {
-            j = j -1;
-        }
-        if (i >= j){
-            break;
-        }
-        i = i + 1;
-        j = j - 1;
     }
-    // if (data[0] < i -1){
-    //     sort(data[0], i - 1);
-    // } if (j + 1 < data[5]){
-    //     sort(j + 1, data[5]);
-    // }
+
+    public static void sort(int first, int last) {
+
+        int pivot;
+        int i;
+        int j;
+
+        pivot = data[(first + last) / 2];
+        i = first;
+        j = last;
+
+        while (true) {
+
+            while (data[i] < pivot) {
+                i++;
+            }
+
+            while (pivot < data[j]) {
+                j--;
+            }
+
+            if (i >= j) {
+                break;
+            }
+
+            // data[i]とdata[j]を入れ替える
+            int temp = data[i];
+            data[i] = data[j];
+            data[j] = temp;
+
+            i++;
+            j--;
+        }
+
+        // *** α ***
+        for (int num : data) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+
+        if (first < i - 1) {
+            sort(first, i - 1);
+        }
+
+        if (j + 1 < last) {
+            sort(j + 1, last);
+        }
     }
 }
