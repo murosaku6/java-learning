@@ -17,7 +17,8 @@ public class Main {
             System.out.println("4. タスク削除");
             System.out.println("5. タスク検索");
             System.out.println("6. 優先順位表示");
-            System.out.println("7. 終了");
+            System.out.println("7. 完了状態切替");
+            System.out.println("8. 終了");
 
             int choice;
 
@@ -45,12 +46,7 @@ public class Main {
                     int priority = scanner.nextInt();
                     scanner.nextLine();
 
-                    Task task = new Task(
-                            title,
-                            description,
-                            priority,
-                            false);
-
+                    Task task = new Task(title, description, priority, false);
                     manager.addTask(task);
                     break;
 
@@ -74,11 +70,7 @@ public class Main {
                     priority = scanner.nextInt();
                     scanner.nextLine();
 
-                    Task newTask = new Task(
-                            title,
-                            description,
-                            priority,
-                            false);
+                    Task newTask = new Task(title, description, priority, false);
                     manager.updateTask(updateIndex, newTask);
                     break;
 
@@ -102,6 +94,14 @@ public class Main {
                     break;
 
                 case 7:
+                    manager.showTasks();
+                    System.out.print("変更する番号：");
+                    int completeIndex = scanner.nextInt();
+                    scanner.nextLine();
+                    manager.changeCompleted(completeIndex);
+                    break;
+
+                case 8:
                     System.out.println("終了します。");
                     scanner.close();
                     return;

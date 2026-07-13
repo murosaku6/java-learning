@@ -42,10 +42,7 @@ public class Task {
 
         return String.format(
             "タイトル：%s, 説明：%s, 優先順位：%d, 状態：%s",
-            title,
-            description,
-            priority ,
-            status
+            title, description, priority, status
         );
     }
 }

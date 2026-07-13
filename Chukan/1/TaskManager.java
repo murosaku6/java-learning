@@ -85,4 +85,15 @@ public class TaskManager {
             System.out.println(task);
         }
     }
+
+    // 完了状態切替
+    public void changeCompleted(int index){
+        if(index < 1 || index > tasks.size()){
+            System.out.println("存在しない番号です。");
+            return;
+        }
+        Task task = tasks.get(index - 1);
+        task.setCompleted(!task.isCompleted());
+        System.out.println("状態を変更しました。");
+    }
 }
