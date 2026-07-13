@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -14,11 +15,21 @@ public class Main {
             System.out.println("2. タスク一覧表示");
             System.out.println("3. タスク更新");
             System.out.println("4. タスク削除");
-            System.out.println("5. 終了");
+            System.out.println("5. タスク検索");
+            System.out.println("6. 優先順位表示");
+            System.out.println("7. 終了");
 
-            System.out.print("選択：");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice;
+
+            try {
+                System.out.print("選択：");
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } catch(InputMismatchException e) {
+                System.out.println("数字を入力してください。");
+                scanner.nextLine();
+                continue;
+            }
 
             switch (choice) {
 
@@ -81,6 +92,16 @@ public class Main {
                     break;
 
                 case 5:
+                    System.out.print("検索キーワード：");
+                    String keyword = scanner.nextLine();
+                    manager.searchTask(keyword);
+                    break;
+
+                case 6:
+                    manager.sortTasks();
+                    break;
+
+                case 7:
                     System.out.println("終了します。");
                     scanner.close();
                     return;

@@ -47,7 +47,42 @@ public class TaskManager {
         }
 
         tasks.set(index - 1, newTask);
-        
+
         System.out.println("更新しました");
+    }
+
+    // 検索
+    public void searchTask(String keyword){
+        if(tasks.isEmpty()){
+            System.out.println("タスクがありません");
+            return;
+        }
+
+        boolean found = false;
+        System.out.println("=== 検索結果 ===");
+        for(Task task : tasks){
+            if(task.getTitle().contains(keyword)){
+                System.out.println(task);
+                found = true;
+            }
+        }
+
+        if(!found){
+            System.out.println("該当するタスクはありません。");
+        }
+    }
+
+    // 優先順位表示
+    public void sortTasks(){
+        if (tasks.isEmpty()){
+            System.out.println("タスクがありません。");
+            return;
+        }
+        tasks.sort((a,b) -> a.getPriority() - b.getPriority());
+        System.out.println("=== 優先順位 ===");
+
+        for (Task task : tasks) {
+            System.out.println(task);
+        }
     }
 }

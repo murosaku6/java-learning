@@ -4,7 +4,7 @@ public class Task {
     private int priority;
     private boolean completed;
 
-    public Task(String title, String description, int priory, boolean compleated){
+    public Task(String title, String description, int priority, boolean completed){
         this.title = title;
         this.description = description;
         this.priority = priority;
@@ -32,8 +32,8 @@ public class Task {
     public boolean isCompleted(){
         return completed;
     }
-    public void setCompleted(boolean Completed) {
-        this.completed = Completed;
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Task {
             title,
             description,
             priority ,
-            completed
+            status
         );
     }
 }
