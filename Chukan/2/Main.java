@@ -12,7 +12,8 @@ public class Main {
             System.out.println("1. 本を登録");
             System.out.println("2. 本一覧表示");
             System.out.println("3. 本を借りる");
-            System.out.println("4. 終了");
+            System.out.println("4. 本を返却する");
+            System.out.println("5. 終了");
             System.out.print("番号を入力してください：");
 
             int choice;
@@ -59,10 +60,23 @@ public class Main {
                     manager.borrowBook(index, borrower);
                     break;
 
+                // 返却
+                case 4:
+                    manager.showBooks();
+                    System.out.print("返却する本の番号を入力してください：");
+                    int returnIndex;
 
+                    try {
+                        returnIndex = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("数字を入力してください。");
+                        break;
+                    }
+                    manager.returnBook(returnIndex);
+                    break;
 
                 // 終了
-                case 4:
+                case 5:
                     System.out.println("システムを終了します。");
                     scanner.close();
                     return;

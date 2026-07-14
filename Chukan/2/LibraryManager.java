@@ -44,4 +44,23 @@ public class LibraryManager {
 
         System.out.println("貸し出しました。");
     }
+
+    public void returnBook(int index){
+        if(index < 1 || index > books.size()){
+            System.out.println("存在しない番号です。");
+            return;
+        }
+
+        Book book = books.get(index - 1);
+
+        if(!book.isBorrowed()){
+            System.out.println("この本は貸出されていません。");
+            return;
+        }
+        
+        book.setBorrowed(false);
+        book.setBorrower("");
+
+        System.out.println("返却しました。");
+    }
 }
