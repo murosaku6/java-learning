@@ -10,35 +10,36 @@ public class r6_1 {
         int j = 0;
         int k = 0;
 
-        // 数え用
-        int count = 0;
-
         while (i < n1 && j < n2) {
             if(data1[i] <= data2[j]) {
                 work[k] = data1[i];
                 i++;
-                k++;
             } else {
                 work[k] = data2[j];
                 j++;
             }
+            k++;
+            System.out.printf("i=%d, j=%d, k=%d%n", i, j, k);
         }
 
-        while (i <= n1) {
+        while (i < n1) {
             work[k] = data1[i];
             i++;
             k++;
+            System.out.printf("i=%d, j=%d, k=%d%n", i, j, k);
         }
 
         while (j < n2) {
             work[k] = data2[j];   /*** a ***/
-            // 何回通過したか
-            count++;
             j++;
             k++;
+            System.out.printf("i=%d, j=%d, k=%d%n", i, j, k);
         }
-        // 何回通過したか
-        System.out.println("aの実行回数：" + count);
+
+        for(int num : work){
+            System.out.print(num + " ");
+        }
+        System.out.println();
     }
 
     public static void main(String[] args){
