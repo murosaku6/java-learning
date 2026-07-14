@@ -81,8 +81,6 @@ public class Main {
                     scanner.close();
                     return;
 
-
-
                 default:
                     System.out.println("1～4を入力してください。");
             }
