@@ -100,7 +100,7 @@ public class LibraryManager {
         }
         for(int i = 0; i < books.size(); i++){
             Book book = books.get(i);
-            if(book.getBookId()).equals(bookId){
+            if(book.getBookId().equals(bookId)){
                 books.remove(i);
                 System.out.println("削除しました。");
                 return;
