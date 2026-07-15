@@ -11,9 +11,12 @@ public class Main {
             System.out.println("=== 図書館管理システム ===");
             System.out.println("1. 本を登録");
             System.out.println("2. 本一覧表示");
-            System.out.println("3. 本を借りる");
-            System.out.println("4. 本を返却する");
-            System.out.println("5. 終了");
+            System.out.println("3. 本検索");
+            System.out.println("4. 本削除");
+            System.out.println("5. 本を借りる");
+            System.out.println("6. 本を返却する");
+            System.out.println("7. タイトル順表示");
+            System.out.println("8. 終了");
             System.out.print("番号を入力してください：");
 
             int choice;
@@ -41,8 +44,22 @@ public class Main {
                     manager.showBooks();
                     break;
 
-                // 貸出
+                // 検索
                 case 3:
+                    System.out.print("検索キーワード：");
+                    String keyword = scanner.nextLine();
+                    manager.searchBook(keyword);
+                    break;
+
+                // 削除
+                case 4:
+                    System.out.print("削除する本ID：");
+                    String daleteBookId = scanner.nextLine();
+                    manager.deleteBook(daleteBookId);
+                    break;
+
+                // 貸出
+                case 5:
                     manager.showBooks();
 
                     System.out.print("借りる本の番号を入力してください：");
@@ -61,7 +78,7 @@ public class Main {
                     break;
 
                 // 返却
-                case 4:
+                case 6:
                     manager.showBooks();
                     System.out.print("返却する本の番号を入力してください：");
                     int returnIndex;
@@ -76,7 +93,7 @@ public class Main {
                     break;
 
                 // 終了
-                case 5:
+                case 8:
                     System.out.println("システムを終了します。");
                     scanner.close();
                     return;
