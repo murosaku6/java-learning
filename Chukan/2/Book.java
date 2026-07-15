@@ -48,16 +48,17 @@ public class Book {
     @Override
     public String toString(){
 
+        String status;
+
         if(borrowed){
-            return "本ID：" + bookId +
-                   " / タイトル：" + title +
-                   " / 著者：" + author +
-                   " / 貸出者：" + borrower;
+            status = "貸出中 (" + borrower + ") ";
         }else{
-            return "本ID：" + bookId +
-                   " / タイトル：" + title +
-                   " / 著者：" + author +
-                   " / 貸出可能";
+            status = "貸出可能";
         }
+
+        return String.format(
+            "%-7s %-20s %-10s %s",
+            bookId, title, author, status
+        );
     }
 }
