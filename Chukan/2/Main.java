@@ -92,6 +92,11 @@ public class Main {
                     manager.returnBook(returnIndex);
                     break;
 
+                // タイトル順
+                case 7:
+                    manager.sortBooks();
+                    break;
+
                 // 終了
                 case 8:
                     System.out.println("システムを終了します。");

@@ -108,4 +108,15 @@ public class LibraryManager {
         }
         System.out.println("該当する本がありません。");
     }
+
+    // タイトル順
+    public void sortBooks(){
+        if(books.isEmpty()) {
+            System.out.println("登録されている本はありません。");
+            return;
+        }
+        books.sort((book1, book2) -> book1.getTitle().compareTo(book2.getTitle()));
+        System.out.println("タイトル順に並び替えました。");
+        showBooks();
+    }
 }
