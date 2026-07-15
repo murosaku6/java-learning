@@ -46,7 +46,7 @@ public class Main {
                     manager.showBooks();
 
                     System.out.print("借りる本の番号を入力してください：");
-                    int index = scanner.nextInt();
+                    int index;
                     try {
                         index = Integer.parseInt(scanner.nextLine());
                     } catch (NumberFormatException e) {
@@ -82,7 +82,7 @@ public class Main {
                     return;
 
                 default:
-                    System.out.println("1～4を入力してください。");
+                    System.out.println("1～5を入力してください。");
             }
         }
     }

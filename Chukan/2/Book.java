@@ -1,4 +1,5 @@
 public class Book {
+    private String bookId;
     private String title;
     private String author;
     private boolean borrowed;
@@ -36,15 +37,25 @@ public class Book {
         this.borrower = borrower;
     }
 
+    public String getBookId(){
+        return bookId;
+    }
+
+    public void setBookId(String bookId){
+        this.bookId = bookId;
+    }
+
     @Override
     public String toString(){
 
         if(borrowed){
-            return "タイトル：" + title +
+            return "本ID：" + bookId +
+                   " / タイトル：" + title +
                    " / 著者：" + author +
                    " / 貸出者：" + borrower;
         }else{
-            return "タイトル：" + title +
+            return "本ID：" + bookId +
+                   " / タイトル：" + title +
                    " / 著者：" + author +
                    " / 貸出可能";
         }

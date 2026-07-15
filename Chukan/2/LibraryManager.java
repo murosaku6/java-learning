@@ -3,12 +3,17 @@ import java.util.ArrayList;
 public class LibraryManager {
 
     private ArrayList<Book> books;
+    private int nextBookNumber;
     
     public LibraryManager(){
         books = new ArrayList<>();
+        nextBookNumber = 1;
     }
 
     public void addBook(Book book){
+        String bookId = String.format("A%04d", nextBookNumber);
+        book.setBookId(bookId);
+        nextBookNumber++;
         books.add(book);
         System.out.println("本を登録しました。");
     }
