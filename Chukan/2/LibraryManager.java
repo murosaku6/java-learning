@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class LibraryManager {
-
     private ArrayList<Book> books;
     
     public LibraryManager(){
@@ -158,7 +157,6 @@ public class LibraryManager {
         System.out.println("========== 検索結果 ==========");
 
         for(Book book : books){
-
             if(book.getTitle().toLowerCase().contains(keyword.toLowerCase())){
 
                 printBook(book);
@@ -173,7 +171,6 @@ public class LibraryManager {
 
     // 著者検索
     public void searchByAuthor(String keyword){
-
         if (books.isEmpty()) {
             System.out.println("登録されている本はありません。");
             return;
@@ -185,9 +182,7 @@ public class LibraryManager {
         System.out.println("========== 検索結果 ==========");
 
         for(Book book : books){
-
             if(book.getAuthor().toLowerCase().contains(keyword.toLowerCase())){
-
                 printBook(book);
                 found = true;
             }
@@ -200,7 +195,6 @@ public class LibraryManager {
 
     // Id検索
     public void searchById(int id){
-
         if (books.isEmpty()) {
             System.out.println("登録されている本はありません。");
             return;
@@ -212,9 +206,7 @@ public class LibraryManager {
         System.out.println("========== 検索結果 ==========");
 
         for(Book book : books){
-
             if(book.getId() == id){
-
                 printBook(book);
                 found = true;
                 break;
@@ -228,7 +220,6 @@ public class LibraryManager {
 
     // ジャンル検索
     public void searchByGenre(String keyword){
-
         if (books.isEmpty()) {
             System.out.println("登録されている本はありません。");
             return;
@@ -240,18 +231,14 @@ public class LibraryManager {
         System.out.println("========== 検索結果 ==========");
 
         for(Book book : books){
-
             for(String genre : book.getGenres()){
-
                 if(genre.toLowerCase().contains(keyword.toLowerCase())){
-
                     printBook(book);
                     found = true;
                     break;
                 }
             }
         }
-
         if(!found){
             System.out.println("該当する本はありません。");
         }

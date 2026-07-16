@@ -15,7 +15,7 @@ public class Main {
             System.out.println("4. 書籍削除");
             System.out.println("5. 書籍の貸出・返却");
             System.out.println("6. ジャンル管理");
-            System.out.println("7. 終了");
+            System.out.println("0. 終了");
             System.out.print("番号を入力してください：");
 
             int choice;
@@ -39,9 +39,7 @@ public class Main {
                     String author = scanner.nextLine();
 
                     Book book = new Book(title, author);
-
                     manager.addBook(book);
-
                     break;
 
                 // 一覧表示
@@ -72,24 +70,20 @@ public class Main {
                     break;
 
                 // 終了
-                case 7:
+                case 0:
                     System.out.println("システムを終了します。");
                     scanner.close();
                     return;
 
                 default:
-                    System.out.println("1～7を入力してください。");
+                    System.out.println("0～6を入力してください。");
             }
         }
     }
 
     // 書籍一覧メニュー
-    private static void showBooksMenu(
-            Scanner scanner,
-            LibraryManager manager) {
-
+    private static void showBooksMenu(Scanner scanner, LibraryManager manager) {
         while (true) {
-
             System.out.println();
             System.out.println("===== 書籍一覧 =====");
             System.out.println("1. 登録順");
@@ -109,7 +103,6 @@ public class Main {
             }
 
             switch (choice) {
-
                 case 1:
                     manager.showBooks(LibraryManager.ORDER_REGISTER);
                     break;
@@ -136,12 +129,8 @@ public class Main {
     }
 
     // 検索メニュー
-    private static void showSearchMenu(
-            Scanner scanner,
-            LibraryManager manager) {
-
+    private static void showSearchMenu(Scanner scanner, LibraryManager manager) {
         while (true) {
-
             System.out.println();
             System.out.println("===== 書籍一覧 =====");
             System.out.println("1. タイトル検索");
@@ -161,7 +150,6 @@ public class Main {
             }
 
             switch (choice) {
-
                 case 1:
                     System.out.print("タイトル：");
                     manager.searchByTitle(scanner.nextLine());
@@ -192,9 +180,7 @@ public class Main {
     }
 
     private static void showBorrowMenu(Scanner scanner, LibraryManager manager){
-
         while(true){
-
             System.out.println();
             System.out.println("===== 書籍・返却 =====");
             System.out.println("1. 貸出");
@@ -213,9 +199,7 @@ public class Main {
             }
 
             switch(choice){
-
                 case 1:{
-
                     manager.showBooks(LibraryManager.ORDER_REGISTER);
 
                     System.out.print("Id：");
@@ -230,7 +214,6 @@ public class Main {
                 }
 
                 case 2:{
-
                     manager.showBooks(LibraryManager.ORDER_REGISTER);
 
                     System.out.print("Id：");
@@ -263,12 +246,8 @@ public class Main {
     }
 
     // ジャンル管理
-    private static void showGenreMenu(
-            Scanner scanner,
-            LibraryManager manager){
-
+    private static void showGenreMenu(Scanner scanner, LibraryManager manager){
         while(true){
-
             System.out.println();
             System.out.println("===== 書籍・返却 =====");
             System.out.println("1. ジャンル追加");
@@ -287,9 +266,7 @@ public class Main {
             }
 
             switch(choice){
-
                 case 1:
-
                     System.out.print("Id：");
                     int id = scanner.nextInt();
 
@@ -301,7 +278,6 @@ public class Main {
                     break;
 
                 case 2:
-
                     System.out.print("Id：");
                     id = scanner.nextInt();
 
@@ -313,7 +289,6 @@ public class Main {
                     break;
 
                 case 3:
-
                     System.out.print("Id：");
                     id = scanner.nextInt();
 
