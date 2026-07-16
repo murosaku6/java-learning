@@ -46,19 +46,12 @@ public class Book {
     }
 
     @Override
-    public String toString(){
-
-        String status;
-
-        if(borrowed){
-            status = "貸出中 (" + borrower + ") ";
-        }else{
-            status = "貸出可能";
-        }
-
-        return String.format(
-            "%-7s %-20s %-10s %s",
-            bookId, title, author, status
-        );
+    public String toString() {
+        return "Book{" +
+                "bookId='" + bookId + '\'' +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", borrowed=" + borrowed +
+                '}';
     }
 }

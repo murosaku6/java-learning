@@ -26,16 +26,30 @@ public class LibraryManager {
             return;
         }
 
-        System.out.println("========= 本一覧 =========");
-        System.out.printf("%-4s %-7s %-20s %-10s %s%n",
+        System.out.println();
+        System.out.println("============================= 本一覧 ============================");
+        System.out.printf("%-4s %-8s %-20s %-15s %-15s%n",
                          "No", "本ID", "タイトル", "著者", "状態"
                         );
-        System.out.println("--------------------------");
+        System.out.println("-----------------------------------------------------------------");
 
         for(int i = 0; i < books.size(); i++){
-            System.out.printf("%-4d %s%n", i + 1, books.get(i));
+            Book book = books.get(i);
+
+            String status;
+
+            if (book.isBorrowed()) {
+                status = "貸出中(" + book.getBorrower() + ")";
+            } else {
+                status = "貸出可能";
+            }
+
+            System.out.printf(
+                    "%-4s %-8s %-20s %-15s %-15s%n",
+                    i + 1, book.getBookId(), book.getTitle(), book.getAuthor(), status
+            );
         }
-        System.out.println("--------------------------");
+        System.out.println("-----------------------------------------------------------------");
         System.out.println("登録冊数：" + books.size() + "冊");
     }
 
