@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Book {
-    private String isbn;
+    private int id;
     private String title;
     private String author;
     // 最大3つまで登録
@@ -17,19 +17,19 @@ public class Book {
 
 
     // コンストラクタ
-    public Book(String isbn, String title, String author) {
-        this.isbn = isbn;
+    public Book(String title, String author) {
+
         this.title = title;
         this.author = author;
 
-        borrowed = false;
-        borrower = "";
+        this.borrowed = false;
+        this.borrower = "";
 
-        genres = new ArrayList<>();
-        borrowHistory = new ArrayList<>();
+        this.genres = new ArrayList<>();
+        this.borrowHistory = new ArrayList<>();
 
-        borrowDate = "";
-        returnDate = "";
+        this.borrowDate = "";
+        this.returnDate = "";
     }
 
     // ジャンル追加
@@ -61,12 +61,12 @@ public class Book {
     }
 
     // ゲッター・セッター
-    // ISBN
-    public String getIsbn() {
-        return isbn;
+    // id
+    public int getId() {
+        return id;
     }
-    public void setIsbn(String isbn){
-        this.isbn = isbn;
+    public void setId(int id) {
+        this.id = id;
     }
     // タイトル
     public String getTitle() {
@@ -116,6 +116,6 @@ public class Book {
 
     @Override
     public String toString() {
-        return isbn + " " + title + " " + author;
+        return id + " " + title + " " + author;
     }
 }
