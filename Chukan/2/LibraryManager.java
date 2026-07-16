@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 
 public class LibraryManager {
@@ -59,10 +60,43 @@ public class LibraryManager {
     }
 
     // 本一覧
-    public void showBooks(){
+    public static final int ORDER_REGISTER = 1;
+    public static final int ORDER_TITLE_ASC = 2;
+    public static final int ORDER_TITLE_DESC = 3;
+    public static final int ORDER_BORROW = 4;
+    public void showBooks(int orderType){
         if(books.isEmpty()){
             System.out.println("登録されている本はありません。");
             return;
+        }
+
+        ArrayList<Book> displayBooks = new ArrayList<>(books);
+
+        switch (orderType) {
+            case ORDER_REGISTER:
+                break;
+            
+            case ORDER_TITLE_ASC:
+                displayBooks.sort(
+                    Comparator.comparing(Book::getTitle)
+                );
+                break;
+
+            case ORDER_TITLE_DESC:
+                displayBooks.sort(
+                    Comparator.comparing(Book::getTitle).reversed()
+                );
+                break;
+
+            case ORDER_BORROW:
+                displayBooks.sort(
+                    Comparator.comparing(Book::isBorrowed).reversed()
+                );
+                break;
+            
+            default:
+                System.out.println("表示方法が不正です。");
+                return;
         }
 
         System.out.println();
@@ -72,11 +106,11 @@ public class LibraryManager {
                         );
         System.out.println("-----------------------------------------------------------------");
 
-        for(Book book : books){
+        for(Book book : displayBooks){
             printBook(book);
         }
         System.out.println("-----------------------------------------------------------------");
-        System.out.println("登録冊数：" + books.size() + "冊");
+        System.out.println("登録冊数：" + displayBooks.size() + "冊");
     }
 
     // 貸出
@@ -99,6 +133,7 @@ public class LibraryManager {
         System.out.println("貸し出しました。");
     }
 
+    // 返却
     public void returnBook(int index){
         if(index < 1 || index > books.size()){
             System.out.println("存在しない番号です。");
@@ -214,16 +249,5 @@ public class LibraryManager {
             }
         }
         System.out.println("該当する本がありません。");
-    }
-
-    // タイトル順
-    public void sortBooks(){
-        if(books.isEmpty()) {
-            System.out.println("登録されている本はありません。");
-            return;
-        }
-        books.sort((book1, book2) -> book1.getTitle().compareTo(book2.getTitle()));
-        System.out.println("タイトル順に並び替えました。");
-        showBooks();
     }
 }
