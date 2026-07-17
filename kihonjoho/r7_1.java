@@ -23,12 +23,17 @@ public class r7_1{
             }
             tempN++;
         }
-        for(j = tempN; j < m; j = j + 4){
+        for(j = tempN; j <= m; j = j + 4){
             count++;
         }
         return count;
     }
 
     public static void main(String[] arg){
+        int result1 = function1(10, 20);
+        int result2 = function2(10, 20);
+
+        System.out.println("function1：" + result1);
+        System.out.println("function2：" + result2);
     }
 }
