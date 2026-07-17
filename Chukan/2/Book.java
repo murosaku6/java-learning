@@ -1,3 +1,6 @@
+/**
+ * 書籍情報を管理するクラス
+ */
 import java.util.ArrayList;
 
 public class Book {
@@ -16,7 +19,12 @@ public class Book {
     private ArrayList<String> borrowHistory;
 
 
-    // コンストラクタ
+    /**
+     * 書籍情報を生成する
+     * 
+     * @param title　タイトル
+     * @param author　著者
+     */
     public Book(String title, String author) {
 
         this.title = title;
@@ -32,7 +40,11 @@ public class Book {
         this.returnDate = "";
     }
 
-    // ジャンル追加
+    /**
+     * ジャンルを追加する
+     * 
+     * @param genre　ジャンル名
+     */
     public void addGenre(String genre) {
         if (genres.size() >= 3) {
             System.out.println("ジャンルは3つまで登録できます。");
@@ -46,7 +58,11 @@ public class Book {
         genres.add(genre);
     }
 
-    // ジャンル削除
+    /**
+     * ジャンルの削除
+     * 
+     * @param genre　ジャンル名
+     */
     public void removeGenre(String genre) {
         if(genres.remove(genre)){
             System.out.println("ジャンルを削除しました。");
@@ -55,7 +71,11 @@ public class Book {
         }
     }
 
-    // 貸出履歴
+    /**
+     * 貸出履歴
+     * 
+     * @param history　履歴
+     */
     public void addBorrowHistory(String history){
         borrowHistory.add(history);
     }

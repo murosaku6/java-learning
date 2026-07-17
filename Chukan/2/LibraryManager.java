@@ -1,9 +1,14 @@
+/**
+ * 図書館業務の管理を行うクラス
+ */
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class LibraryManager {
     private ArrayList<Book> books;
-    
+    /**
+     * LibraryManagerを生成する
+     */
     public LibraryManager(){
         books = new ArrayList<>();
     }
@@ -11,7 +16,11 @@ public class LibraryManager {
     // 次の書籍番号
     private int nextId = 1;
 
-    // 書籍登録
+    /**
+     * 書籍を登録する
+     * 
+     * @param book　登録する書籍
+     */
     public void addBook(Book book){
         book.setId(nextId);
         nextId++;
@@ -20,7 +29,9 @@ public class LibraryManager {
         System.out.println("管理番号：" + book.getId());
     }
 
-    // printBook
+    /**
+     *  書籍情報を１行で表示する
+     */
     private void printBook(Book book) {
             String status = book.isBorrowed()
                 ? "貸出中(" + book.getBorrower() + ")"
@@ -33,19 +44,26 @@ public class LibraryManager {
         );
     }
 
-    // 本一覧
+    // 一覧表示の並び順
     public static final int ORDER_REGISTER = 1;
     public static final int ORDER_TITLE_ASC = 2;
     public static final int ORDER_TITLE_DESC = 3;
     public static final int ORDER_BORROW = 4;
+    /**
+     * 書籍一覧を表示する
+     * 
+     * @param orderType　表示順
+     */
     public void showBooks(int orderType){
         if(books.isEmpty()){
             System.out.println("登録されている本はありません。");
             return;
         }
 
+        // 表示用のリストを作成する
         ArrayList<Book> displayBooks = new ArrayList<>(books);
 
+        // 表示順を変更する
         switch (orderType) {
             case ORDER_REGISTER:
                 break;
@@ -79,7 +97,8 @@ public class LibraryManager {
                          "Id", "タイトル", "著者", "ジャンル", "状態"
                         );
         System.out.println("-----------------------------------------------------------------");
-
+        
+        // 一覧を表示する
         for(Book book : displayBooks){
             printBook(book);
         }
@@ -87,8 +106,14 @@ public class LibraryManager {
         System.out.println("登録冊数：" + displayBooks.size() + "冊");
     }
 
-    // 貸出
+    /**
+     * 書籍を貸し出す。
+     *
+     * @param id 管理番号
+     * @param borrower 利用者名
+     */
     public void borrowBook(int id, String borrower){
+        // 管理番号から書籍を検索
         Book book = findBookById(id);
 
         if(book == null){
@@ -101,11 +126,16 @@ public class LibraryManager {
             return;
         }
         book.setBorrowed(true);
+        // 貸出状態を更新
         book.setBorrower(borrower);
-        System.out.println("貸し出しました。");
+        book.addBorrowHistory(borrower + " が貸出しました。");
     }
 
-    // 返却
+    /**
+     * 書籍を返却する。
+     *
+     * @param id 管理番号
+     */
     public void returnBook(int id){
         Book book = findBookById(id);
 
@@ -118,32 +148,34 @@ public class LibraryManager {
             System.out.println("この本は貸出されていません。");
             return;
         }
+        String brrower = book.getBorrower();
         book.setBorrowed(false);
+        book.addBorrowHistory(brrower + " が返却しました。");
         book.setBorrower("");
-        System.out.println("返却しました。");
     }
 
-    // 貸出履歴
-    public void showBorrowHistory(int id){
-        Book book = findBookById(id);
-        if(book == null){
-            System.out.println("該当するIdがありません。");
-            return;
-        }
-        System.out.println();
-        System.out.println("===== 貸出・返却履歴 =====");
-        System.out.println("Id：" + book.getId());
-        System.out.println("タイトル：" + book.getTitle());
-        if(book.getBorrowHistory().isEmpty()){
-            System.out.println("履歴はありません。");
-            return;
-        }
-        for(String history : book.getBorrowHistory()){
-            System.out.println(history);
+    /**
+     * 全ての貸出・返却履歴を表示する。
+     */
+    public void showBorrowHistory(){
+        for(Book book : books){
+            System.out.println("Id：" + book.getId());
+            System.out.println("タイトル：" + book.getTitle());
+            if(book.getBorrowHistory().isEmpty()){
+                System.out.println("履歴はありません。");
+                return;
+            }
+            for(String history : book.getBorrowHistory()){
+                System.out.println("・" + history);
+            }
         }
     }
 
-    // タイトル検索
+    /**
+     * タイトルで書籍を検索する。
+     *
+     * @param keyword 検索キーワード
+     */
     public void searchByTitle(String keyword){
 
         if (books.isEmpty()) {
@@ -169,7 +201,11 @@ public class LibraryManager {
         }
     }
 
-    // 著者検索
+    /**
+     * 著者名で書籍を検索する。
+     *
+     * @param keyword 検索キーワード
+     */
     public void searchByAuthor(String keyword){
         if (books.isEmpty()) {
             System.out.println("登録されている本はありません。");
@@ -193,7 +229,11 @@ public class LibraryManager {
         }
     }
 
-    // Id検索
+    /**
+     * 管理番号で書籍を検索する。
+     *
+     * @param id 管理番号
+     */
     public void searchById(int id){
         if (books.isEmpty()) {
             System.out.println("登録されている本はありません。");
@@ -218,7 +258,11 @@ public class LibraryManager {
         }
     }
 
-    // ジャンル検索
+    /**
+     * ジャンルで書籍を検索する。
+     *
+     * @param keyword 検索キーワード
+     */
     public void searchByGenre(String keyword){
         if (books.isEmpty()) {
             System.out.println("登録されている本はありません。");
@@ -244,7 +288,9 @@ public class LibraryManager {
         }
     }
 
-    // 貸出中のみ
+    /**
+     * 貸出中の書籍のみ表示する。
+     */
     public void showBorrowedBooks() {
         boolean found = false;
         for (Book book : books) {
@@ -258,7 +304,9 @@ public class LibraryManager {
         }
     }
 
-    // 貸出可能のみ
+    /**
+     * 貸出可能な書籍のみ表示する。
+     */
     public void showAvailableBooks() {
         boolean found = false;
         for (Book book : books) {
@@ -272,7 +320,11 @@ public class LibraryManager {
         }
     }
 
-    // 削除
+    /**
+     * 書籍を削除する。
+     *
+     * @param id 管理番号
+     */
     public void deleteBook(int id){
         Book book = findBookById(id);
         if(book == null){
@@ -283,7 +335,12 @@ public class LibraryManager {
         System.out.println("削除しました。");
     }
 
-    // Idから本を検索
+    /**
+     * 管理番号から書籍を検索する。
+     *
+     * @param id 管理番号
+     * @return 見つかった書籍
+     */
     private Book findBookById(int id){
         for(Book book : books){
             if(book.getId() == id){
@@ -293,7 +350,12 @@ public class LibraryManager {
         return null;
     }
 
-    // ジャンル追加
+    /**
+     * 書籍にジャンルを追加する。
+     *
+     * @param id 管理番号
+     * @param genre ジャンル名
+     */
     public void addGenre(int id, String genre){
         Book book = findBookById(id);
         if(book == null){
@@ -304,7 +366,12 @@ public class LibraryManager {
         System.out.println("ジャンルを追加しました。");
     }
 
-    // ジャンル削除
+    /**
+     * 書籍からジャンルを削除する。
+     *
+     * @param id 管理番号
+     * @param genre 削除するジャンル
+     */
     public void removeGenre(int id, String genre){
         Book book = findBookById(id);
         if(book == null){
@@ -314,7 +381,11 @@ public class LibraryManager {
         book.removeGenre(genre);
     }
 
-    // ジャンル一覧表示
+    /**
+     * 書籍に登録されているジャンルを表示する。
+     *
+     * @param id 管理番号
+     */
     public void showGenres(int id){
         Book book = findBookById(id);
         if(book == null){
