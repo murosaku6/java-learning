@@ -1,10 +1,14 @@
 package com.example.grademanagementsystem.controller;
 
+import com.example.grademanagementsystem.model.Student;
 import com.example.grademanagementsystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 学生管理画面を制御するコントローラー
@@ -39,7 +43,63 @@ public class StudentController {
                 "students",
                 studentService.getAllStudents());
 
-        return "students";
+        return "students/list";
     }
 
+    /**
+     * 学生登録画面を表示する
+     *
+     * @param model Viewへ渡すデータ
+     * @return 学生登録画面
+     */
+    @GetMapping("/students/new")
+    public String showCreateForm(Model model) {
+        model.addAttribute(
+                "student",
+                new Student());
+
+        return "students/form";
+    }
+
+    /**
+     * 学生を登録する
+     *
+     * @param student 登録する学生
+     * @return 学生一覧
+     */
+    @PostMapping("/students")
+    public String createStudent(@ModelAttribute Student student) {
+        studentService.addStudent(student);
+
+        return "redirect:/students";
+    }
+
+    /**
+     * 学生編集画面を表示する
+     *
+     * @param id 学生ID
+     * @param model Viewへ渡すデータ
+     * @return 学生編集画面
+     */
+    @GetMapping("/students/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Student student = studentService.findStudentById(id);
+        model.addAttribute("student", student);
+        return "students/form";
+    }
+
+    /**
+     * 学生情報を更新する
+     *
+     * @param student 更新後の学生
+     * @return 学生一覧
+     */
+    @PostMapping("/students/update")
+    public String updateStudent(
+            @ModelAttribute Student student) {
+
+        studentService.updateStudent(student);
+
+        return "redirect:/students";
+    }
 }

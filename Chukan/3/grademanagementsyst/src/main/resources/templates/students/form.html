@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>学生登録</title>
+    </head>
+
+    <body>
+
+        <h1>学生登録</h1>
+
+        <form th:action="${student.id == null}
+                        ? @{/students}
+                        : @{/students/update}"
+            th:object="${student}"
+            method="post">
+
+            <input type="hidden" th:field="*{id}">
+
+            <p>
+                学籍番号<input type="text" th:field="*{studentNumber}">
+            </p>
+
+            <p>
+                氏名<input type="text" th:field="*{name}">
+            </p>
+
+            <p>
+                学年<input type="number" th:field="*{grade}">
+            </p>
+
+            <p>
+                クラス<input type="text" th:field="*{className}">
+            </p>
+
+            <button type="submit">
+                登録
+            </button>
+        </form>
+
+        <br>
+
+        <a th:href="@{/students}">
+            一覧へ戻る
+        </a>
+    </body>
+</html>
