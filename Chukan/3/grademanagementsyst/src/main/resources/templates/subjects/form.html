@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>科目登録</title>
+</head>
+<body>
+    <h1 th:if="${subject.id == null}">
+        科目登録
+    </h1>
+    <h1 th:unless="${subject.id == null}">
+        科目編集
+    </h1>
+    <form th:action="${subject.id == null} ? @{/subjects} : @{/subjects/update}"
+         th:object="${subject}" method="post">
+        <input type="hidden"th:field="*{id}">
+        <p>
+            科目コード
+            <input type="text" th:field="*{subjectCode}">
+            <span
+                th:if="${#fields.hasErrors('subjectCode')}"
+                th:errors="*{subjectCode}" style="color:red">
+            </span>
+        </p>
+        <p>
+            科目名
+            <input type="text" th:field="*{subjectName}">
+            <span
+                th:if="${#fields.hasErrors('subjectName')}"
+                th:errors="*{subjectName}" style="color:red">
+            </span>
+        </p>
+        <p>
+            単位数
+            <input type="number" th:field="*{credits}">
+            <span th:if="${#fields.hasErrors('credits')}"
+                th:errors="*{credits}" style="color:red">
+            </span>
+        </p>
+        <button type="submit">
+            保存
+        </button>
+        <a th:href="@{/subjects}">
+            戻る
+        </a>
+    </form>
+</body>
+</html>

@@ -1,14 +1,28 @@
 package com.example.grademanagementsystem.model;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
 /**
  * 科目情報を管理するモデルクラス
  */
 public class Subject {
+
     /** 科目ID */
     private Long id;
+
+    /** 科目コード */
+    @NotBlank(message = "科目コードを入力してください")
+    private String subjectCode;
+
     /** 科目名 */
+    @NotBlank(message = "科目名を入力してください")
     private String subjectName;
-    /** 担当教員名 */
-    private String teacherName;
+
+    /** 単位数 */
+    @Min(value = 1, message = "単位数は1以上を入力してください")
+    private int credits;
+
     /**
      * デフォルトコンストラクタ
      */
@@ -16,76 +30,62 @@ public class Subject {
     }
 
     /**
-     * 科目情報を生成する
-     *
-     * @param id 科目ID
-     * @param subjectName 科目名
-     * @param teacherName 担当教員名
+     * コンストラクタ
      */
-    public Subject(Long id, String subjectName, String teacherName) {
+    public Subject(Long id,
+                   String subjectCode,
+                   String subjectName,
+                   int credits) {
+
         this.id = id;
+        this.subjectCode = subjectCode;
         this.subjectName = subjectName;
-        this.teacherName = teacherName;
+        this.credits = credits;
     }
 
-    /**
-     * 科目IDを取得する
-     *
-     * @return 科目ID
-     */
+    // Getter
+
     public Long getId() {
         return id;
     }
 
-    /**
-     * 科目IDを設定する
-     *
-     * @param id 科目ID
-     */
-    public void setId(Long id) {
-        this.id = id;
+    public String getSubjectCode() {
+        return subjectCode;
     }
 
-    /**
-     * 科目名を取得する
-     *
-     * @return 科目名
-     */
     public String getSubjectName() {
         return subjectName;
     }
 
-    /**
-     * 科目名を設定する
-     *
-     * @param subjectName 科目名
-     */
+    public int getCredits() {
+        return credits;
+    }
+
+    // Setter
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setSubjectCode(String subjectCode) {
+        this.subjectCode = subjectCode;
+    }
+
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
     }
 
-    /**
-     * 担当教員名を取得する
-     *
-     * @return 担当教員名
-     */
-    public String getTeacherName() {
-        return teacherName;
-    }
-
-    /**
-     * 担当教員名を設定する
-     *
-     * @param teacherName 担当教員名
-     */
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+    public void setCredits(int credits) {
+        this.credits = credits;
     }
 
     @Override
     public String toString() {
-        return "Subject{" + "id=" + id + ", subjectName='" + subjectName +
-                '\'' + ", teacherName='" + teacherName +
-                '\'' + '}';
+        return "Subject{" +
+                "id=" + id +
+                ", subjectCode='" + subjectCode + '\'' +
+                ", subjectName='" + subjectName + '\'' +
+                ", credits=" + credits +
+                '}';
     }
 }
