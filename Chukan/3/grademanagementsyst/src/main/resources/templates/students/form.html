@@ -21,22 +21,32 @@
             <p>
                 学籍番号<input type="text" th:field="*{studentNumber}">
             </p>
+            <div th:if="${#fields.hasErrors('studentNumber')}"
+                 th:errors="*{studentNumber}" style="color: red;">
+            </div>
 
             <p>
                 氏名<input type="text" th:field="*{name}">
             </p>
+            <div th:if="${#fields.hasErrors('name')}"
+                 th:errors="*{name}"  style="color: red;">
+            </div>
 
             <p>
                 学年<input type="number" th:field="*{grade}">
             </p>
+            <div th:if="${#fields.hasErrors('grade')}"
+                 th:errors="*{grade}" style="color:red;">
+            </div>
 
             <p>
                 クラス<input type="text" th:field="*{className}">
             </p>
+            <div th:if="${#fields.hasErrors('className')}"
+                th:errors="*{className}" style="color:red;">
+            </div>
 
-            <button type="submit">
-                登録
-            </button>
+            <button type="submit" th:text="${student.id == null} ? '登録' : '更新'"></button>
         </form>
 
         <br>

@@ -24,6 +24,7 @@
             <th>学年</th>
             <th>クラス</th>
             <th>編集</th>
+            <th>削除</th>
         </tr>
 
         <tr th:each="student : ${students}">
@@ -34,7 +35,13 @@
             <td th:text="${student.className}"></td>
             <td>
                 <a th:href="@{/students/edit/{id}(id=${student.id})}">
-                    編集
+                    編集 
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/students/delete/{id}(id=${student.id})}"
+                onclick="return confirm('この学生を削除しますか？');">
+                    削除
                 </a>
             </td>
         </tr>

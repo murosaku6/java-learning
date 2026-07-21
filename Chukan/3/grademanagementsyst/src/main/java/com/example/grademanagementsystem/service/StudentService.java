@@ -18,7 +18,6 @@ public class StudentService {
     private Long nextId = 1L;
 
     public StudentService() {
-
         addStudent(new Student(
                 null,
                 "S001",
@@ -40,10 +39,8 @@ public class StudentService {
      * @param student 登録する学生
      */
     public void addStudent(Student student) {
-
         student.setId(nextId);
         nextId++;
-
         students.add(student);
     }
 
@@ -63,13 +60,11 @@ public class StudentService {
      * @return 学生情報
      */
     public Student findStudentById(Long id) {
-
         for (Student student : students) {
             if (student.getId().equals(id)) {
                 return student;
             }
         }
-
         return null;
     }
 
@@ -79,13 +74,10 @@ public class StudentService {
      * @param student 更新後の学生情報
      */
     public void updateStudent(Student student) {
-
         Student target = findStudentById(student.getId());
-
         if (target == null) {
             return;
         }
-
         target.setStudentNumber(student.getStudentNumber());
         target.setName(student.getName());
         target.setGrade(student.getGrade());
@@ -98,9 +90,7 @@ public class StudentService {
      * @param id 学生ID
      */
     public void deleteStudent(Long id) {
-
         Student student = findStudentById(id);
-
         if (student != null) {
             students.remove(student);
         }

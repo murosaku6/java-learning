@@ -2,16 +2,24 @@ package com.example.grademanagementsystem.model;
 /**
  * 学生情報を管理するモデルクラス
  */
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 public class Student {
     /** 学生ID */
     private Long id;
     /** 学籍番号 */
+    @NotBlank(message = "学籍番号を入力してください")
     private String studentNumber;
     /** 学生氏名 */
+    @NotBlank(message = "氏名を入力してください")
     private String name;
     /** 学年 */
+    @Min(value = 1, message = "学年は1以上です。")
+    @Max(value = 6, message = "学年は6以下です。")
     private int grade;
     /** クラス名 */
+    @NotBlank(message = "クラスを入力してください")
     private String className;
     /**
      * デフォルトコンストラクタ
