@@ -26,20 +26,20 @@ public class SubjectService {
 
         addSubject(new Subject(
                 null,
-                "JAVA101",
-                "Javaプログラミング",
+                "JP",
+                "国語",
                 2));
 
         addSubject(new Subject(
                 null,
-                "DB101",
-                "データベース",
+                "MT",
+                "数学",
                 2));
 
         addSubject(new Subject(
                 null,
-                "WEB101",
-                "Webプログラミング",
+                "EN",
+                "英語",
                 2));
     }
 
