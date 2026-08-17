@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>成績一覧</title>
+</head>
+
+<body>
+
+    <h1>成績一覧</h1>
+
+    <p>
+        <a th:href="@{/}">← ホームへ戻る</a>
+    </p>
+
+    <p>
+        <a th:href="@{/scores/new}">成績を登録する</a>
+    </p>
+
+    <!-- 検索フォーム -->
+    <h2>成績を検索</h2>
+
+    <form th:action="@{/scores}" method="get">
+
+        <label for="studentId">
+            学生：
+        </label>
+
+        <select id="studentId" name="studentId">
+
+            <!-- 全学生 -->
+            <option value=""
+                    th:selected="${selectedStudentId == null}">
+                すべて
+            </option>
+
+            <!-- 学生一覧 -->
+            <option th:each="student : ${students}"
+                    th:value="${student.id}"
+                    th:text="${student.name}"
+                    th:selected="${selectedStudentId != null and selectedStudentId == student.id}">
+            </option>
+        </select>
+
+        <label for="subjectId">
+            科目：
+        </label>
+
+        <select id="subjectId" name="subjectId">
+
+            <!-- 全科目 -->
+            <option value=""
+                    th:selected="${selectedSubjectId == null}">
+                すべて
+            </option>
+
+            <!-- 科目一覧 -->
+            <option th:each="subject : ${subjects}"
+                    th:value="${subject.id}"
+                    th:text="${subject.subjectName}"
+                    th:selected="${selectedSubjectId != null and selectedSubjectId == subject.id}">
+            </option>
+        </select>
+
+        <button type="submit">
+            検索
+        </button>
+
+        <a th:href="@{/scores}">
+            クリア
+        </a>
+    </form>
+
+    <!-- 成績一覧 -->
+    <h2>成績一覧</h2>
+
+    <table border="1">
+
+        <tr>
+            <th>ID</th>
+            <th>学生</th>
+            <th>科目</th>
+            <th>点数</th>
+            <th>評価</th>
+            <th>試験日</th>
+            <th>編集</th>
+            <th>削除</th>
+        </tr>
+
+        <tr th:each="score : ${scores}">
+
+            <td th:text="${score.id}">
+            </td>
+
+            <!-- 学生名 -->
+            <td>
+                <span th:each="student : ${students}"
+                      th:if="${student.id == score.studentId}"
+                      th:text="${student.name}">
+                    学生名
+                </span>
+            </td>
+
+            <!-- 科目名 -->
+            <td>
+                <span th:each="subject : ${subjects}"
+                      th:if="${subject.id == score.subjectId}"
+                      th:text="${subject.subjectName}">
+                    科目名
+                </span>
+            </td>
+
+            <td th:text="${score.score}">
+            </td>
+
+            <td th:text="${score.grade}">
+            </td>
+
+            <td th:text="${score.examDate}">
+            </td>
+
+            <td>
+                <a th:href="@{/scores/edit/{id}(id=${score.id})}">
+                    編集
+                </a>
+            </td>
+
+            <td>
+
+                <a th:href="@{/scores/delete/{id}(id=${score.id})}"
+                   onclick="return confirm('この成績を削除しますか？');">
+                    削除
+                </a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

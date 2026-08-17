@@ -1,107 +1,108 @@
 package com.example.grademanagementsystem.model;
+
+import java.time.LocalDate;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 /**
  * 成績情報を管理するモデルクラス
  */
 public class Score {
+
     /** 成績ID */
     private Long id;
+
     /** 学生ID */
+    @NotNull(message = "学生を選択してください")
     private Long studentId;
+
     /** 科目ID */
+    @NotNull(message = "科目を選択してください")
     private Long subjectId;
+
     /** 点数 */
+    @Min(value = 0, message = "0以上を入力してください")
+    @Max(value = 100, message = "100以下を入力してください")
     private int score;
+
+    /** 評価(A～F) */
+    private String grade;
+
+    /** 試験日 */
+    @NotNull(message = "試験日を入力してください")
+    private LocalDate examDate;
+
     /**
      * デフォルトコンストラクタ
      */
     public Score() {
+        this.examDate = LocalDate.now();
     }
 
     /**
-     * 成績情報を生成する
-     *
-     * @param id 成績ID
-     * @param studentId 学生ID
-     * @param subjectId 科目ID
-     * @param score 点数
+     * コンストラクタ
      */
-    public Score(Long id, Long studentId, Long subjectId, int score) {
-        this.id = id;
-        this.studentId = studentId;
-        this.subjectId = subjectId;
-        this.score = score;
+    public Score(Long id, Long studentId, Long subjectId, 
+        int score, String grade, LocalDate examDate) {
+            this.id = id;
+            this.studentId = studentId;
+            this.subjectId = subjectId;
+            this.score = score;
+            this.grade = grade;
+            this.examDate = examDate;
     }
 
-    /**
-     * 成績IDを取得する
-     *
-     * @return 成績ID
-     */
+    // Getter
+
     public Long getId() {
         return id;
     }
 
-    /**
-     * 成績IDを設定する
-     *
-     * @param id 成績ID
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * 学生IDを取得する
-     *
-     * @return 学生ID
-     */
     public Long getStudentId() {
         return studentId;
     }
 
-    /**
-     * 学生IDを設定する
-     *
-     * @param studentId 学生ID
-     */
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    /**
-     * 科目IDを取得する
-     *
-     * @return 科目ID
-     */
     public Long getSubjectId() {
         return subjectId;
     }
 
-    /**
-     * 科目IDを設定する
-     *
-     * @param subjectId 科目ID
-     */
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
-    }
-
-    /**
-     * 点数を取得する
-     *
-     * @return 点数
-     */
     public int getScore() {
         return score;
     }
 
-    /**
-     * 点数を設定する
-     *
-     * @param score 点数
-     */
+    public String getGrade() {
+        return grade;
+    }
+
+    public LocalDate getExamDate() {
+        return examDate;
+    }
+
+    // Setter
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
+
+    public void setSubjectId(Long subjectId) {
+        this.subjectId = subjectId;
+    }
+
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public void setExamDate(LocalDate examDate) {
+        this.examDate = examDate;
     }
 
     @Override
@@ -109,6 +110,8 @@ public class Score {
         return "Score{" + "id=" + id +
                 ", studentId=" + studentId +
                 ", subjectId=" + subjectId +
-                ", score=" + score + '}';
+                ", score=" + score +
+                ", grade='" + grade + '\'' +
+                ", examDate=" + examDate + '}';
     }
 }

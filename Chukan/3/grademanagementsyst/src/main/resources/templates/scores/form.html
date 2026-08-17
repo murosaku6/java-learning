@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>成績登録</title>
+    </head>
+
+    <body>
+        <h1 th:text="${score.id == null} ? '成績登録' : '成績編集'"></h1>
+        <p>
+            <a th:href="@{/scores}">← 成績一覧へ戻る</a>
+        </p>
+        <form
+            th:action="${score.id == null} ? @{/scores} : @{/scores/update}"
+            th:object="${score}"
+            method="post">
+
+            <!-- ID（編集時のみ保持） -->
+            <input type="hidden" th:field="*{id}">
+            <table>
+                <!-- 学生 -->
+                <tr>
+                    <td>学生</td>
+                    <td>
+                        <select th:field="*{studentId}">
+                            <option value="">選択してください</option>
+                            <option
+                                th:each="student : ${students}"
+                                th:value="${student.id}"
+                                th:text="${student.name}">
+                            </option>
+                        </select>
+                        <div
+                            th:if="${#fields.hasErrors('studentId')}"
+                            th:errors="*{studentId}">
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- 科目 -->
+                <tr>
+                    <td>科目</td>
+                    <td>
+                        <select th:field="*{subjectId}">
+                            <option value="">選択してください</option>
+                            <option
+                                th:each="subject : ${subjects}"
+                                th:value="${subject.id}"
+                                th:text="${subject.subjectName}">
+                            </option>
+                        </select>
+                        <div
+                            th:if="${#fields.hasErrors('subjectId')}"
+                            th:errors="*{subjectId}">
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- 点数 -->
+                <tr>
+                    <td>点数</td>
+                    <td>
+                        <input
+                            type="number"
+                            th:field="*{score}"
+                            min="0"
+                            max="100">
+                        <div
+                            th:if="${#fields.hasErrors('score')}"
+                            th:errors="*{score}">
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- 試験日 -->
+                <tr>
+                    <td>試験日</td>
+                    <td>
+                        <input
+                            type="date"
+                            th:field="*{examDate}">
+                        <div
+                            th:if="${#fields.hasErrors('examDate')}"
+                            th:errors="*{examDate}">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <button type="submit"
+                th:text="${score.id == null} ? '登録' : '更新'">
+            </button>
+        </form>
+    </body>
+</html>
