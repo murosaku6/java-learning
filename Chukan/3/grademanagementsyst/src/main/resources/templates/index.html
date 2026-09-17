@@ -1,22 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title>成績管理システム</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-
 <body>
 
-<h1>成績管理システム</h1>
+    <h1>成績管理システム</h1>
 
-<ul>
-    <li><a th:href="@{/students}">👨 学生管理</a></li>
-    <li><a th:href="@{/subjects}">📖 科目管理</a></li>
-    <li><a th:href="@{/scores}">📝 成績管理</a></li>
-    <li><a th:href="@{/statistics}">📊 統計</a></li>
-    <li>📄 PDF出力</li>
-</ul>
+    <ul class="menu-list">
+        <li>
+            <a th:href="@{/students}" class="menu-link">
+                学生管理
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/subjects}" class="menu-link">
+                科目管理
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/scores}" class="menu-link">
+                成績管理
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/statistics}" class="menu-link">
+                統計情報
+            </a>
+        </li>
+
+        <li>
+            <span class="menu-disabled">
+                PDF出力（未実装）
+            </span>
+        </li>
+    </ul>
 
 </body>
 </html>

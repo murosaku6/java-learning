@@ -1,0 +1,313 @@
+/* ================================
+   共通設定
+================================ */
+
+body {
+    font-family: sans-serif;
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+h1 {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+/* ================================
+   共通カード
+================================ */
+
+.content-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 0 auto 30px;
+}
+
+
+/* ================================
+   トップ画面
+================================ */
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.menu-list li {
+    margin-bottom: 15px;
+}
+
+.menu-link {
+    display: block;
+    padding: 15px 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #333;
+    text-decoration: none;
+    text-align: center;
+}
+
+.menu-link:hover {
+    background-color: #eeeeee;
+}
+
+.menu-disabled {
+    display: block;
+    padding: 15px 20px;
+    background-color: #eeeeee;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #888;
+    text-align: center;
+}
+
+
+/* ================================
+   ボタン
+================================ */
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #555;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.button:hover {
+    background-color: #333;
+}
+
+.button-secondary {
+    background-color: #777;
+}
+
+.button-secondary:hover {
+    background-color: #555;
+}
+
+.button-danger {
+    background-color: #666;
+}
+
+.button-danger:hover {
+    background-color: #333;
+}
+
+
+/* ================================
+   テーブル
+================================ */
+
+.data-table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    background-color: #fff;
+    margin: 0 auto 30px;
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.data-table th {
+    background-color: #eeeeee;
+}
+
+
+/* ================================
+   フォーム
+================================ */
+
+.form-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.form-actions {
+    margin-top: 20px;
+}
+
+
+/* ================================
+   エラーメッセージ
+================================ */
+
+.error-message {
+    color: #c00;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+
+/* ================================
+   検索フォーム
+================================ */
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    align-items: end;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.search-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.search-group label {
+    font-weight: bold;
+    text-align: center;
+}
+
+.search-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+/* ================================
+   統計カード
+================================ */
+
+.statistics-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 180px;
+    text-align: center;
+}
+
+.stat-card h2 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}
+
+.stat-card p {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+/* ================================
+   戻るリンク
+================================ */
+
+.back-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #555;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.back-link:hover {
+    background-color: #333;
+}
+
+
+/* ================================
+   画面幅が狭い場合
+================================ */
+
+@media (max-width: 600px) {
+
+    body {
+        margin: 20px;
+    }
+
+    .data-table {
+        font-size: 13px;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 7px;
+    }
+
+    .statistics-container {
+        flex-direction: column;
+    }
+
+    .stat-card {
+        width: auto;
+    }
+
+    .search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+}
+
+
+/* ================================
+   テーブル下の操作ボタン
+================================ */
+
+.table-action {
+    max-width: 800px;
+    margin: -15px auto 30px;
+    text-align: right;
+}

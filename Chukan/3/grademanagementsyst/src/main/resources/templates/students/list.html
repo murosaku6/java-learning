@@ -1,50 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
-    <title>学生一覧</title>
+    <title>学生管理</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-
 <body>
-    <h1>学生一覧</h1>
-    <p>
-        <a th:href="@{/}">← ホームへ戻る</a>
-    </p>
-    <p>
-        <a th:href="@{/students/new}">学生を登録する</a>
-    </p>
 
-    <table border="1">
+    <h1>学生管理</h1>
 
-        <tr>
-            <th>ID</th>
-            <th>学籍番号</th>
-            <th>氏名</th>
-            <th>学年</th>
-            <th>クラス</th>
-            <th>編集</th>
-            <th>削除</th>
-        </tr>
+    <div class="table-action">
+        <a th:href="@{/students/new}" class="button">
+            学生登録
+        </a>
+    </div>
+    <div class="content-card">
 
-        <tr th:each="student : ${students}">
-            <td th:text="${student.id}"></td>
-            <td th:text="${student.studentNumber}"></td>
-            <td th:text="${student.name}"></td>
-            <td th:text="${student.grade}"></td>
-            <td th:text="${student.className}"></td>
-            <td>
-                <a th:href="@{/students/edit/{id}(id=${student.id})}">
-                    編集 
-                </a>
-            </td>
-            <td>
-                <a th:href="@{/students/delete/{id}(id=${student.id})}"
-                onclick="return confirm('この学生を削除しますか？');">
-                    削除
-                </a>
-            </td>
-        </tr>
-    </table>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>学籍番号</th>
+                    <th>氏名</th>
+                    <th>学年</th>
+                    <th>クラス</th>
+                    <th>編集</th>
+                    <th>削除</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.id}"></td>
+                    <td th:text="${student.studentNumber}"></td>
+                    <td th:text="${student.name}"></td>
+                    <td th:text="${student.grade}"></td>
+                    <td th:text="${student.className}"></td>
+
+                    <td>
+                        <a th:href="@{/students/edit/{id}(id=${student.id})}"
+                           class="button">
+                            編集
+                        </a>
+                    </td>
+
+                    <td>
+                        <a th:href="@{/students/delete/{id}(id=${student.id})}"
+                           class="button button-danger"
+                           onclick="return confirm('この学生を削除しますか？');">
+                            削除
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <a th:href="@{/}" class="back-link">
+        メニューに戻る
+    </a>
+
 </body>
 </html>

@@ -1,51 +1,64 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
-    <title>科目一覧</title>
+    <title>科目管理</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-
 <body>
-    <h1>科目一覧</h1>
-    <p>
-        <a th:href="@{/}">
-            ← ホームへ戻る
-        </a>
-    </p>
 
-    <p>
-        <a th:href="@{/subjects/new}">
-            科目を登録する
-        </a>
-    </p>
+    <h1>科目管理</h1>
 
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>科目コード</th>
-            <th>科目名</th>
-            <th>単位数</th>
-            <th>編集</th>
-            <th>削除</th>
-        </tr>
-        <tr th:each="subject : ${subjects}">
-            <td th:text="${subject.id}"></td>
-            <td th:text="${subject.subjectCode}"></td>
-            <td th:text="${subject.subjectName}"></td>
-            <td th:text="${subject.credits}"></td>
-            <td>
-                <a th:href="@{/subjects/edit/{id}(id=${subject.id})}">
-                    編集
-                </a>
-            </td>
-            <td>
-                <a th:href="@{/subjects/delete/{id}(id=${subject.id})}"
-                   onclick="return confirm('この科目を削除しますか？');">
-                    削除
-                </a>
-            </td>
-        </tr>
-    </table>
+    <div class="table-action">
+        <a th:href="@{/subjects/new}" class="button">
+            科目登録
+        </a>
+    </div>
+
+    <div class="content-card">
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>科目コード</th>
+                    <th>科目名</th>
+                    <th>単位数</th>
+                    <th>編集</th>
+                    <th>削除</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="subject : ${subjects}">
+                    <td th:text="${subject.id}"></td>
+                    <td th:text="${subject.subjectCode}"></td>
+                    <td th:text="${subject.subjectName}"></td>
+                    <td th:text="${subject.credits}"></td>
+
+                    <td>
+                        <a th:href="@{/subjects/edit/{id}(id=${subject.id})}"
+                           class="button">
+                            編集
+                        </a>
+                    </td>
+
+                    <td>
+                        <a th:href="@{/subjects/delete/{id}(id=${subject.id})}"
+                           class="button button-danger"
+                           onclick="return confirm('この科目を削除しますか？');">
+                            削除
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <a th:href="@{/}" class="back-link">
+        メニューに戻る
+    </a>
+
 </body>
 </html>

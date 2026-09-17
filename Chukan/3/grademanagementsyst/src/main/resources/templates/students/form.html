@@ -1,58 +1,119 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-    <head>
-        <meta charset="UTF-8">
-        <title>学生登録</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${student.id == null ? '学生登録' : '学生編集'}">
+        学生登録
+    </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
 
-    <body>
+<body>
 
-        <h1>学生登録</h1>
+    <h1 th:text="${student.id == null ? '学生登録' : '学生編集'}">
+        学生登録
+    </h1>
 
-        <form th:action="${student.id == null}
-                        ? @{/students}
-                        : @{/students/update}"
-            th:object="${student}"
-            method="post">
+    <div class="form-card">
 
-            <input type="hidden" th:field="*{id}">
+        <form th:object="${student}"
+              th:action="${student.id == null ? '/students' : '/students/update'}"
+              method="post">
 
-            <p>
-                学籍番号<input type="text" th:field="*{studentNumber}">
-            </p>
-            <div th:if="${#fields.hasErrors('studentNumber')}"
-                 th:errors="*{studentNumber}" style="color: red;">
+            <!-- 学籍番号 -->
+            <div class="form-group">
+
+                <label for="studentNumber">
+                    学籍番号
+                </label>
+
+                <input type="text"
+                       id="studentNumber"
+                       th:field="*{studentNumber}">
+
+                <div class="error-message"
+                     th:if="${#fields.hasErrors('studentNumber')}"
+                     th:errors="*{studentNumber}">
+                </div>
+
             </div>
 
-            <p>
-                氏名<input type="text" th:field="*{name}">
-            </p>
-            <div th:if="${#fields.hasErrors('name')}"
-                 th:errors="*{name}"  style="color: red;">
+            <!-- 氏名 -->
+            <div class="form-group">
+
+                <label for="name">
+                    氏名
+                </label>
+
+                <input type="text"
+                       id="name"
+                       th:field="*{name}">
+
+                <div class="error-message"
+                     th:if="${#fields.hasErrors('name')}"
+                     th:errors="*{name}">
+                </div>
+
             </div>
 
-            <p>
-                学年<input type="number" th:field="*{grade}">
-            </p>
-            <div th:if="${#fields.hasErrors('grade')}"
-                 th:errors="*{grade}" style="color:red;">
+            <!-- 学年 -->
+            <div class="form-group">
+
+                <label for="grade">
+                    学年
+                </label>
+
+                <input type="number"
+                       id="grade"
+                       th:field="*{grade}">
+
+                <div class="error-message"
+                     th:if="${#fields.hasErrors('grade')}"
+                     th:errors="*{grade}">
+                </div>
+
             </div>
 
-            <p>
-                クラス<input type="text" th:field="*{className}">
-            </p>
-            <div th:if="${#fields.hasErrors('className')}"
-                th:errors="*{className}" style="color:red;">
+            <!-- クラス -->
+            <div class="form-group">
+
+                <label for="className">
+                    クラス
+                </label>
+
+                <input type="text"
+                       id="className"
+                       th:field="*{className}">
+
+                <div class="error-message"
+                     th:if="${#fields.hasErrors('className')}"
+                     th:errors="*{className}">
+                </div>
+
             </div>
 
-            <button type="submit" th:text="${student.id == null} ? '登録' : '更新'"></button>
+            <!-- ボタン -->
+            <div class="form-actions">
+
+                <button type="submit" class="button"
+                        th:text="${student.id == null ? '登録する' : '更新する'}">
+                    登録する
+                </button>
+
+                <a th:href="@{/students}" class="button button-secondary">
+                    キャンセル
+                </a>
+
+            </div>
+
         </form>
 
-        <br>
+    </div>
 
-        <a th:href="@{/students}">
-            一覧へ戻る
-        </a>
-    </body>
+    <a th:href="@{/students}" class="back-link">
+        学生一覧に戻る
+    </a>
+
+</body>
 </html>
