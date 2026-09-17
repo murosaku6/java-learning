@@ -1,12 +1,19 @@
 package com.example.grademanagementsystem.controller;
 
+import com.example.grademanagementsystem.model.Score;
+import com.example.grademanagementsystem.model.Subject;
+import com.example.grademanagementsystem.service.ScoreService;
 import com.example.grademanagementsystem.service.StudentService;
+import com.example.grademanagementsystem.service.SubjectService;
+
 import org.openpdf.text.Document;
 import org.openpdf.text.Font;
 import org.openpdf.text.PageSize;
 import org.openpdf.text.Paragraph;
 import org.openpdf.text.pdf.BaseFont;
+import org.openpdf.text.pdf.PdfPTable;
 import org.openpdf.text.pdf.PdfWriter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 /**
  * PDF出力画面およびPDF生成を制御するコントローラー
@@ -28,14 +36,28 @@ public class PdfController {
     /** 学生管理サービス */
     private final StudentService studentService;
 
+    /** 成績管理サービス */
+    private final ScoreService scoreService;
+
+    /** 科目管理サービス */
+    private final SubjectService subjectService;
+
     /**
      * コンストラクタ
      *
      * @param studentService 学生管理サービス
+     * @param scoreService 成績管理サービス
+     * @param subjectService 科目管理サービス
      */
     @Autowired
-    public PdfController(StudentService studentService) {
+    public PdfController(
+            StudentService studentService,
+            ScoreService scoreService,
+            SubjectService subjectService) {
+
         this.studentService = studentService;
+        this.scoreService = scoreService;
+        this.subjectService = subjectService;
     }
 
     /**
@@ -131,6 +153,108 @@ public class PdfController {
                         "クラス：" + student.getClassName(),
                         font));
 
+        // 少し間隔を空ける
+        document.add(new Paragraph(" ", font));
+
+        // 成績一覧
+        document.add(
+                new Paragraph("成績一覧", font));
+
+        // 学生の成績だけを抽出
+        List<Score> studentScores = scoreService.getAllScores()
+                .stream()
+                .filter(score ->
+                        id.equals(score.getStudentId()))
+                .toList();
+
+        // 成績表を作成
+        PdfPTable table = new PdfPTable(5);
+
+        table.setWidthPercentage(100);
+
+        // ヘッダー
+        table.addCell(
+                new Paragraph("科目コード", font));
+
+        table.addCell(
+                new Paragraph("科目名", font));
+
+        table.addCell(
+                new Paragraph("得点", font));
+
+        table.addCell(
+                new Paragraph("評価", font));
+
+        table.addCell(
+                new Paragraph("試験日", font));
+
+        // 成績データ
+        for (Score score : studentScores) {
+
+            // 成績に対応する科目を検索
+            Subject subject = null;
+
+            for (Subject currentSubject :
+                    subjectService.getAllSubjects()) {
+
+                if (currentSubject.getId()
+                        .equals(score.getSubjectId())) {
+
+                    subject = currentSubject;
+                    break;
+                }
+            }
+
+            // 科目が存在する場合
+            if (subject != null) {
+
+                table.addCell(
+                        new Paragraph(
+                                subject.getSubjectCode(),
+                                font));
+
+                table.addCell(
+                        new Paragraph(
+                                subject.getSubjectName(),
+                                font));
+
+            } else {
+
+                table.addCell(
+                        new Paragraph("-", font));
+
+                table.addCell(
+                        new Paragraph("-", font));
+            }
+
+            table.addCell(
+                    new Paragraph(
+                            String.valueOf(score.getScore()),
+                            font));
+
+            table.addCell(
+                    new Paragraph(
+                            score.getGrade(),
+                            font));
+
+            table.addCell(
+                    new Paragraph(
+                            String.valueOf(score.getExamDate()),
+                            font));
+        }
+
+        // 成績がない場合
+        if (studentScores.isEmpty()) {
+
+            table.addCell(
+                    new Paragraph(
+                            "成績データがありません",
+                            font));
+        }
+
+        // PDFへ表を追加
+        document.add(table);
+
         // PDF作成終了
         document.close();
 
@@ -141,7 +265,8 @@ public class PdfController {
         return ResponseEntity.ok()
                 .header(
                         HttpHeaders.CONTENT_DISPOSITION,
-                        "inline; filename=\"student_" + id + ".pdf\"")
+                        "inline; filename=\"student_"
+                                + id + ".pdf\"")
                 .contentType(
                         MediaType.APPLICATION_PDF)
                 .body(pdfBytes);
