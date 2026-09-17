@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>成績表PDF出力</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+    <h1>成績表PDF出力</h1>
+
+    <div class="content-card">
+
+        <h2>学生を選択してください</h2>
+
+        <table class="data-table">
+
+            <thead>
+                <tr>
+                    <th>学生番号</th>
+                    <th>氏名</th>
+                    <th>学年</th>
+                    <th>クラス</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr th:each="student : ${students}">
+
+                    <td th:text="${student.studentNumber}">
+                        S001
+                    </td>
+
+                    <td th:text="${student.name}">
+                        山田 太郎
+                    </td>
+
+                    <td th:text="${student.grade}">
+                        1
+                    </td>
+
+                    <td th:text="${student.className}">
+                        A
+                    </td>
+
+                    <td>
+                        <a th:href="@{/pdf/students/{id}(id=${student.id})}"
+                           class="button">
+                            PDF出力
+                        </a>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <a th:href="@{/}"
+       class="back-link">
+        メニューに戻る
+    </a>
+
+</body>
+</html>
