@@ -71,12 +71,22 @@ public class StudentController {
      * @return 学生一覧
      */
     @PostMapping("/students")
-    public String createStudent(@Valid @ModelAttribute Student student, BindingResult result) {
-        if(result.hasErrors()){
+    public String createStudent(
+            @Valid @ModelAttribute Student student,
+            BindingResult result,
+            Model model) {
+
+        if (result.hasErrors()) {
             return "students/form";
         }
+
         studentService.addStudent(student);
-        return "redirect:/students";
+
+        model.addAttribute(
+                "students",
+                studentService.getAllStudents());
+
+        return "students/list";
     }
 
     /**
@@ -100,12 +110,22 @@ public class StudentController {
      * @return 学生一覧
      */
     @PostMapping("/students/update")
-    public String updateStudent(@Valid @ModelAttribute Student student, BindingResult result) {
+    public String updateStudent(
+            @Valid @ModelAttribute Student student,
+            BindingResult result,
+            Model model) {
+
         if (result.hasErrors()) {
             return "students/form";
         }
+
         studentService.updateStudent(student);
-        return "redirect:/students";
+
+        model.addAttribute(
+                "students",
+                studentService.getAllStudents());
+
+        return "students/list";
     }
 
     /**

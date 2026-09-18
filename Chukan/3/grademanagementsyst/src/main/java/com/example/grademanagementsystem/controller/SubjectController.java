@@ -72,18 +72,23 @@ public class SubjectController {
      * @param result バリデーション結果
      * @return 科目一覧
      */
-    @PostMapping("/subjects")
-    public String createSubject(
+    @PostMapping("/subjects/update")
+    public String updateSubject(
             @Valid @ModelAttribute Subject subject,
-            BindingResult result) {
+            BindingResult result,
+            Model model) {
 
         if (result.hasErrors()) {
             return "subjects/form";
         }
 
-        subjectService.addSubject(subject);
+        subjectService.updateSubject(subject);
 
-        return "redirect:/subjects";
+        model.addAttribute(
+                "subjects",
+                subjectService.getAllSubjects());
+
+        return "subjects/list";
     }
 
     /**
