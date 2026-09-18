@@ -91,15 +91,29 @@ public class ScoreController {
      */
     @PostMapping("/scores")
     public String createScore(
-        @Valid @ModelAttribute Score score,
-        BindingResult result, Model model) {
-            if (result.hasErrors()) {
-                model.addAttribute("students", studentService.getAllStudents());
-                model.addAttribute("subjects", subjectService.getAllSubjects());
-                return "scores/form";
-            }
-            scoreService.addScore(score);
-            return "redirect:/scores";
+            @Valid @ModelAttribute Score score,
+            BindingResult result,
+            Model model) {
+
+        if (result.hasErrors()) {
+            return "scores/form";
+        }
+
+        scoreService.addScore(score);
+
+        model.addAttribute(
+                "scores",
+                scoreService.getAllScores());
+
+        model.addAttribute(
+                "students",
+                studentService.getAllStudents());
+
+        model.addAttribute(
+                "subjects",
+                subjectService.getAllSubjects());
+
+        return "scores/list";
     }
 
     /**
@@ -110,15 +124,29 @@ public class ScoreController {
      */
     @PostMapping("/scores/update")
     public String updateScore(
-        @Valid @ModelAttribute Score score,
-        BindingResult result,Model model) {
-            if (result.hasErrors()) {
-                model.addAttribute("students", studentService.getAllStudents());
-                model.addAttribute("subjects", subjectService.getAllSubjects());
-                return "scores/form";
-            }
-            scoreService.updateScore(score);
-            return "redirect:/scores";
+            @Valid @ModelAttribute Score score,
+            BindingResult result,
+            Model model) {
+
+        if (result.hasErrors()) {
+            return "scores/form";
+        }
+
+        scoreService.updateScore(score);
+
+        model.addAttribute(
+                "scores",
+                scoreService.getAllScores());
+
+        model.addAttribute(
+                "students",
+                studentService.getAllStudents());
+
+        model.addAttribute(
+                "subjects",
+                subjectService.getAllSubjects());
+
+        return "scores/list";
     }
 
     /**

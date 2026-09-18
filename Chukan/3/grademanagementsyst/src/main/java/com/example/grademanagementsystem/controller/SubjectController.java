@@ -72,8 +72,8 @@ public class SubjectController {
      * @param result バリデーション結果
      * @return 科目一覧
      */
-    @PostMapping("/subjects/update")
-    public String updateSubject(
+    @PostMapping("/subjects")
+    public String createSubject(
             @Valid @ModelAttribute Subject subject,
             BindingResult result,
             Model model) {
@@ -82,7 +82,7 @@ public class SubjectController {
             return "subjects/form";
         }
 
-        subjectService.updateSubject(subject);
+        subjectService.addSubject(subject);
 
         model.addAttribute(
                 "subjects",
@@ -122,7 +122,8 @@ public class SubjectController {
     @PostMapping("/subjects/update")
     public String updateSubject(
             @Valid @ModelAttribute Subject subject,
-            BindingResult result) {
+            BindingResult result,
+            Model model) {
 
         if (result.hasErrors()) {
             return "subjects/form";
@@ -130,7 +131,11 @@ public class SubjectController {
 
         subjectService.updateSubject(subject);
 
-        return "redirect:/subjects";
+        model.addAttribute(
+                "subjects",
+                subjectService.getAllSubjects());
+
+        return "subjects/list";
     }
 
     /**
